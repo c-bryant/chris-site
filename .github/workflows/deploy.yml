@@ -3,25 +3,19 @@ name: Build and Deploy
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Log trigger
-        run: |
-          echo "GITHUB_EVENT_NAME=$GITHUB_EVENT_NAME"
-          echo "GITHUB_REF=$GITHUB_REF"
-          echo "GITHUB_SHA=$GITHUB_SHA"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -32,51 +26,17 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
-
-      - name: Copy index.html to 404.html for SPA routing
-        run: cp dist/index.html dist/404.html
-
-      - name: Debug dist contents
         run: |
-          echo "--- dist directory tree ---"
-          find dist
-          echo "--- dist/index.html head ---"
-          head -20 dist/index.html
+          npm run build
+          cp dist/index.html dist/404.html
 
-      - name: Deploy to gh-pages branch (manual)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          echo "Deploying to gh-pages branch..."
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+      - name: Configure Pages
+        uses: actions/configure-pages@v3
 
-          # Ensure build output exists before touching gh-pages
-          if [ ! -d "$GITHUB_WORKSPACE/dist" ] || [ ! -f "$GITHUB_WORKSPACE/dist/index.html" ]; then
-            echo "Build failed or dist missing — aborting deploy"
-            exit 1
-          fi
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./dist
 
-          # Clone repo (shallow) if gh-pages exists, otherwise clone full and create orphan
-          if git ls-remote --exit-code --heads "https://github.com/${REPO}.git" gh-pages; then
-            git clone --depth=1 --branch=gh-pages "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" out
-            cd out
-          else
-            git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" out
-            cd out
-            git checkout --orphan gh-pages || true
-          fi
-          # Copy dist contents (including dotfiles) into out using rsync (rsync --delete will remove stale files)
-          echo "Copying build output from $GITHUB_WORKSPACE/dist to out/"
-          rsync -a --delete "$GITHUB_WORKSPACE/dist/" ./out/
-
-          cd out
-          # ensure we have a local gh-pages branch to push from
-          git checkout -B gh-pages || true
-          git add -A
-          git commit -m "Deploy from ${GITHUB_SHA}" || echo "Nothing to commit, but will force-push anyway."
-          # Always force-push current HEAD to remote gh-pages branch
-          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" HEAD:gh-pages --force
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
