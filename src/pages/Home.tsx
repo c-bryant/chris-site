@@ -37,7 +37,7 @@ const Home = () => {
         <div className="projects-grid">
           <article className="project-card">
             <img src={logo} alt="project 1" />
-            <h3>Project One</h3>
+            <h3>Project Ohhhh</h3>
             <p>
               A modern web app showcasing performant UI and scalable
               architecture.
