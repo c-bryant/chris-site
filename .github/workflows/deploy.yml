@@ -27,6 +27,13 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Debug dist contents
+        run: |
+          echo "--- dist directory tree ---"
+          find dist
+          echo "--- dist/index.html head ---"
+          head -20 dist/index.html
+
       - name: Deploy to gh-pages branch (manual)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
