@@ -1,5 +1,7 @@
-import './About.scss'
 import logo from '../assets/logo.svg'
+import { Link } from 'react-router-dom'
+
+import './About.scss'
 
 const About = () => {
   return (
@@ -14,9 +16,9 @@ const About = () => {
             JavaScript tooling and creating delightful UIs.
           </p>
           <div className="contact-cta">
-            <a className="btn" href="/contact">
+            <Link className="btn" to="/contact">
               Get in touch
-            </a>
+            </Link>
           </div>
         </div>
       </section>
