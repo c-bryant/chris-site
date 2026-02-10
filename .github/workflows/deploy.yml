@@ -59,10 +59,13 @@ jobs:
           rsync -a --delete "$GITHUB_WORKSPACE/dist/" out/
 
           cd out
+          # ensure we have a local gh-pages branch to push from
+          git checkout -B gh-pages || true
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to deploy"
           else
             git commit -m "Deploy from ${GITHUB_SHA}"
-            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" gh-pages --force
+            # push current HEAD to remote gh-pages branch
+            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" HEAD:gh-pages --force
           fi
