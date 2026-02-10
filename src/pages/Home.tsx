@@ -1,4 +1,5 @@
 import './Home.scss'
+import logo from '../assets/logo.svg'
 
 const Home = () => {
   return (
@@ -27,7 +28,7 @@ const Home = () => {
           </div>
         </div>
         <div className="home-visual">
-          <img src="/logo.svg" alt="brand" />
+          <img src={logo} alt="brand" />
         </div>
       </div>
       <hr />
@@ -35,7 +36,7 @@ const Home = () => {
         <h2>What I've Built</h2>
         <div className="projects-grid">
           <article className="project-card">
-            <img src="/logo.svg" alt="project 1" />
+            <img src={logo} alt="project 1" />
             <h3>Project One</h3>
             <p>
               A modern web app showcasing performant UI and scalable
@@ -47,7 +48,7 @@ const Home = () => {
           </article>
 
           <article className="project-card">
-            <img src="/logo.svg" alt="project 2" />
+            <img src={logo} alt="project 2" />
             <h3>Project Two</h3>
             <p>
               Design system and component library used across multiple products.
@@ -58,7 +59,7 @@ const Home = () => {
           </article>
 
           <article className="project-card">
-            <img src="/logo.svg" alt="project 3" />
+            <img src={logo} alt="project 3" />
             <h3>Project Three</h3>
             <p>
               API-driven platform with realtime updates and great DX for teams.

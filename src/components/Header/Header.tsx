@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss'
+import logo from '../../assets/logo.svg'
 import { useEffect, useState } from 'react'
 
 const Header = () => {
@@ -21,7 +22,7 @@ const Header = () => {
         <div className="h-grid">
           <div className="left-content">
             <span className="logo">
-              <img src="/logo.svg" alt="Logo" width={40} height={40} />
+              <img src={logo} alt="Logo" width={40} height={40} />
             </span>
             <nav className="nav-links">
               <Link to="/">Home</Link>

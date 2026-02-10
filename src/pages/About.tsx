@@ -1,10 +1,11 @@
 import './About.scss'
+import logo from '../assets/logo.svg'
 
 const About = () => {
   return (
     <div className="about-wrapper">
       <section className="about-hero">
-        <img className="about-avatar" src="/logo.svg" alt="avatar" />
+        <img className="about-avatar" src={logo} alt="avatar" />
         <div className="about-intro">
           <h1>Hi, I'm Chris</h1>
           <p className="lead">
