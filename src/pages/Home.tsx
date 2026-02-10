@@ -1,5 +1,6 @@
 import './Home.scss'
 import logo from '../assets/logo.svg'
+import demo1 from '../assets/demo-1.webp'
 
 const Home = () => {
   return (
@@ -36,7 +37,7 @@ const Home = () => {
         <h2>What I've Built</h2>
         <div className="projects-grid">
           <article className="project-card">
-            <img src={logo} alt="project 1" />
+            <img src={demo1} alt="project 1" />
             <h3>Project One</h3>
             <p>
               A modern web app showcasing performant UI and scalable
