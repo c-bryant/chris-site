@@ -7,7 +7,7 @@ const About = () => {
       <section className="about-hero">
         <img className="about-avatar" src={logo} alt="avatar" />
         <div className="about-intro">
-          <h1>Hi, iz Chris</h1>
+          <h1>Hi, so cool Chris</h1>
           <p className="lead">
             I build elegant, reliable web applications with a focus on
             performance and developer experience. I enjoy working with modern
