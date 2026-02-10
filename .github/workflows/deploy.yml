@@ -54,9 +54,9 @@ jobs:
           # Ensure out directory exists
           mkdir -p out
 
-          # Copy dist contents (including dotfiles) into out
-          shopt -s dotglob || true
-          cp -r dist/* out/ || true
+          # Copy dist contents (including dotfiles) into out using rsync
+          echo "Copying build output from $GITHUB_WORKSPACE/dist to out/"
+          rsync -a --delete "$GITHUB_WORKSPACE/dist/" out/
 
           cd out
           git add -A
