@@ -1,6 +1,7 @@
 import './Home.scss'
 import logo from '../assets/logo.svg'
-import demo1 from '../assets/demo-1.webp'
+import { Link } from 'react-router-dom'
+import ProjectCards from '../components/ProjectCards/ProjectCards'
 
 const Home = () => {
   return (
@@ -20,56 +21,23 @@ const Home = () => {
             writing, and ways to get in touch.
           </p>
           <div className="home-actions">
-            <a className="btn primary" href="/about">
+            <Link className="btn primary" to="/about">
               Learn more about me
-            </a>
-            <a className="btn ghost" href="/contact">
+            </Link>
+            <Link className="btn ghost" to="/contact">
               Contact
-            </a>
+            </Link>
           </div>
         </div>
         <div className="home-visual">
           <img src={logo} alt="brand" />
         </div>
       </div>
+
       <hr />
       <section className="projects">
         <h2>What I've Built</h2>
-        <div className="projects-grid">
-          <article className="project-card">
-            <img src={demo1} alt="project 1" />
-            <h3>Project One</h3>
-            <p>
-              A modern web app showcasing performant UI and scalable
-              architecture.
-            </p>
-            <a className="btn ghost" href="#">
-              View
-            </a>
-          </article>
-
-          <article className="project-card">
-            <img src={logo} alt="project 2" />
-            <h3>Project Two</h3>
-            <p>
-              Design system and component library used across multiple products.
-            </p>
-            <a className="btn ghost" href="#">
-              View
-            </a>
-          </article>
-
-          <article className="project-card">
-            <img src={logo} alt="project 3" />
-            <h3>Project Three</h3>
-            <p>
-              API-driven platform with realtime updates and great DX for teams.
-            </p>
-            <a className="btn ghost" href="#">
-              View
-            </a>
-          </article>
-        </div>
+        <ProjectCards />
       </section>
     </div>
   )
