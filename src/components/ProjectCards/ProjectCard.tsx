@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 type Props = {
   imgSrc: string
   alt?: string
@@ -18,9 +20,9 @@ const ProjectCard = ({
       <img src={imgSrc} alt={alt} />
       <h3>{title}</h3>
       <p>{description}</p>
-      <a className="btn ghost" href={href}>
+      <Link className="btn ghost" to={href}>
         View
-      </a>
+      </Link>
     </article>
   )
 }

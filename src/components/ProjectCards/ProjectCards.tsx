@@ -1,15 +1,16 @@
-import demo1 from '../../assets/demo-1.webp'
 import logo from '../../assets/logo.svg'
+import sharkExperienceHomeUI from '../../assets/shark-experience-home-ui.jpg'
 import ProjectCard from './ProjectCard'
 
 const ProjectCards = () => {
   return (
     <div className="projects-grid">
       <ProjectCard
-        imgSrc={demo1}
-        alt="project 1"
-        title="Project One"
-        description="A modern web app showcasing performant UI and scalable architecture."
+        imgSrc={sharkExperienceHomeUI}
+        alt="Shark Experience"
+        title="Shark Experience"
+        description="Premium media platform that delivers connectivity and content to a golfer via a touchscreen device incorporated into a golf cart."
+        href="/shark-experience"
       />
 
       <ProjectCard

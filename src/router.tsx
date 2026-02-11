@@ -3,6 +3,7 @@ import App from './App'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import SharkExperience from './pages/SharkExperience'
 
 const Router = () => (
   <Routes>
@@ -10,6 +11,7 @@ const Router = () => (
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="shark-experience" element={<SharkExperience />} />
     </Route>
   </Routes>
 )
