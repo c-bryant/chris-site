@@ -25,6 +25,10 @@ const SharkExperience = () => {
   ]
 
   const basePath = import.meta.env.BASE_URL || '/'
+  const assetPath = (p: string) => {
+    const bp = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath
+    return `${bp}/${p.replace(/^\/+/, '')}`
+  }
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
@@ -75,8 +79,12 @@ const SharkExperience = () => {
     const prev = (selectedIndex - 1 + images.length) % images.length
     const imgNext = new Image()
     const imgPrev = new Image()
-    imgNext.src = images[next].src
-    imgPrev.src = images[prev].src
+    imgNext.src = assetPath(
+      'assets/responsive/' + images[next].base + '-1600.webp'
+    )
+    imgPrev.src = assetPath(
+      'assets/responsive/' + images[prev].base + '-1600.webp'
+    )
     return () => {
       // allow garbage collection by removing src
       imgNext.src = ''
@@ -204,7 +212,7 @@ const SharkExperience = () => {
               const webpSrcSet = widths
                 .map(
                   (w) =>
-                    `${basePath}assets/responsive/${img.base}-${w}.webp ${w}w`
+                    `${assetPath('assets/responsive/' + img.base + '-' + w + '.webp')} ${w}w`
                 )
                 .join(', ')
               return (
@@ -226,13 +234,15 @@ const SharkExperience = () => {
                       srcSet={widths
                         .map(
                           (w) =>
-                            `${basePath}assets/responsive/${img.base}-${w}.jpg ${w}w`
+                            `${assetPath('assets/responsive/' + img.base + '-' + w + '.jpg')} ${w}w`
                         )
                         .join(', ')}
                       sizes="(max-width:880px) 100vw, 33vw"
                     />
                     <img
-                      src={`${basePath}assets/responsive/${img.base}-1024.jpg`}
+                      src={assetPath(
+                        'assets/responsive/' + img.base + '-1024.jpg'
+                      )}
                       alt={img.alt}
                       onError={(e) => {
                         const t = e.currentTarget as HTMLImageElement
@@ -357,7 +367,11 @@ const SharkExperience = () => {
             <picture>
               <source
                 type="image/webp"
-                srcSet={`/assets/responsive/${images[selectedIndex].base}-1600.webp`}
+                srcSet={assetPath(
+                  'assets/responsive/' +
+                    images[selectedIndex].base +
+                    '-1600.webp'
+                )}
               />
               <img
                 src={images[selectedIndex].src}
