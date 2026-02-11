@@ -332,10 +332,16 @@ const SharkExperience = () => {
             >
               ×
             </button>
-            <img
-              src={images[selectedIndex].src}
-              alt={images[selectedIndex].alt}
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={`/assets/responsive/${images[selectedIndex].base}-1600.webp`}
+              />
+              <img
+                src={images[selectedIndex].src}
+                alt={images[selectedIndex].alt}
+              />
+            </picture>
           </div>
         </div>
       )}
