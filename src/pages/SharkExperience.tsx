@@ -24,6 +24,8 @@ const SharkExperience = () => {
     },
   ]
 
+  const basePath = import.meta.env.BASE_URL || '/'
+
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
   const openLightbox = (index: number) => setSelectedIndex(index)
@@ -200,7 +202,10 @@ const SharkExperience = () => {
             {images.map((img, idx) => {
               const widths = [480, 768, 1024, 1600]
               const webpSrcSet = widths
-                .map((w) => `/assets/responsive/${img.base}-${w}.webp ${w}w`)
+                .map(
+                  (w) =>
+                    `${basePath}assets/responsive/${img.base}-${w}.webp ${w}w`
+                )
                 .join(', ')
               return (
                 <button
@@ -216,7 +221,24 @@ const SharkExperience = () => {
                       srcSet={webpSrcSet}
                       sizes="(max-width:880px) 100vw, 33vw"
                     />
-                    <img loading="lazy" src={img.src} alt={img.alt} />
+                    <source
+                      type="image/jpeg"
+                      srcSet={widths
+                        .map(
+                          (w) =>
+                            `${basePath}assets/responsive/${img.base}-${w}.jpg ${w}w`
+                        )
+                        .join(', ')}
+                      sizes="(max-width:880px) 100vw, 33vw"
+                    />
+                    <img
+                      src={`${basePath}assets/responsive/${img.base}-1024.jpg`}
+                      alt={img.alt}
+                      onError={(e) => {
+                        const t = e.currentTarget as HTMLImageElement
+                        if (t.src !== img.src) t.src = img.src
+                      }}
+                    />
                   </picture>
                 </button>
               )
